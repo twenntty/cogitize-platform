@@ -1,4 +1,4 @@
-const CollectionItem = require('../Models/collectionItem');
+const CollectionItem = require('../models/collectionItem');
 
 async function getAllCollectionItems(req, res) {
   try {
