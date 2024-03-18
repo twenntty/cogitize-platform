@@ -6,8 +6,8 @@ const collectionItemSchema = mongoose.Schema({
     description: {type: String, required: true},
     creator: {type: String, required: true},
     year_of_creation: {type: String, required: true},
-    tags: {type: [String], required: true},
-    digital_representations: {type: [String], required: true}
+    tags: [{type: String}],
+    digital_representations: [{type: String}]
 });
 
 const collectionItem = mongoose.model('CollectionItem', collectionItemSchema);
