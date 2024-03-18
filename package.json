@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": ""
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,10 @@
     "url": "https://github.com/twenntty/cogitize-platform/issues"
   },
   "homepage": "https://github.com/twenntty/cogitize-platform#readme",
-  "dependencies": {
+  "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "mongoose": "^8.2.2"
   }
 }
