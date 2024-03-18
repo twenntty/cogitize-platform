@@ -1,34 +1,35 @@
-const User = require('../models/user');
+const User = require("../models/user.js");
+const UserService = require("../Services/userService.js");
 
-// Зареєструвати нового користувача
-async function registerUser(req, res) {
-  const user = new User(req.body);
-  try {
-    const newUser = await user.save();
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}
+const users =[];
 
-// Аутентифікувати користувача
-async function loginUser(req, res) {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-
-    if (!user || user.password !== password) {
-      res.status(401).json({ message: 'Invalid email or password' });
-      return;
+class UserController{
+    async getAll (req,res){
+        try{
+            const users = await UserService.getAll();
+            return res.status(200).json(users);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
     }
-
-    res.json({ message: 'Login successful', user });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    async register (req,res){
+        try{
+            const user = await UserService.register(req.body);
+            return res.status(200).json(user);
+        }catch(error)
+        {
+            res.redirect('/register')
+        }
+    }
+    async login (req,res){
+        try{
+            const user = await BookService.login(req.email,req.username);
+            return res.status(200).json(user);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
 }
-
-module.exports = {
-  registerUser,
-  loginUser
-};
+module.exports = new UserController();

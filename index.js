@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const router = require('./router')
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
+app.use('/', router);
 
 mongoose.connect('mongodb+srv://Markus:090987@cluster0.m2w6nyw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {dbName: 'cogitize-practice'});
 const db = mongoose.connection;

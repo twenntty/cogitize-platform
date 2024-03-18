@@ -1,57 +1,52 @@
-const CollectionItem = require('../models/collectionItem');
+const item = require("../models/collectionItem.js");
+const itemService = require("../Services/itemService.js");
 
-async function getAllCollectionItems(req, res) {
-  try {
-    const collectionItems = await CollectionItem.find();
-    res.json(collectionItems);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+class itemController{
+    async create (req,res){
+        try{
+            console.log(req.files)
+            const item = await itemService.create(req.body,req.files.picture);
+            return res.status(200).json(item);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
+    async getAll (req,res){
+        try{
+            const items = await itemService.getAll(req.page,req.limit);
+            return res.status(200).json(items);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
+    async getOne (req,res){
+        try{
+            const item = await itemService.getOne(req.params.id)
+            return res.status(200).json(item);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
+    async update (req,res){
+        try{
+            const item = await itemService.update(req.body)
+            return res.status(200).json(item);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
+    async delete (req,res){
+        try{
+            const item = await itemService.delete(req.params.id);
+            return res.status(200).json(item);
+        }catch(error)
+        {
+            res.status(500).json(error)
+        }
+    }
 }
-
-async function getCollectionItemById(req, res) {
-  res.json(res.collectionItem);
-}
-
-async function createCollectionItem(req, res) {
-  const collectionItem = new CollectionItem(req.body);
-  try {
-    const newCollectionItem = await collectionItem.save();
-    res.status(201).json(newCollectionItem);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}
-
-async function updateCollectionItem(req, res) {
-  if (req.body.title != null) {
-    res.collectionItem.title = req.body.title;
-  }
-  if (req.body.description != null) {
-    res.collectionItem.description = req.body.description;
-  }
-  
-  try {
-    const updatedCollectionItem = await res.collectionItem.save();
-    res.json(updatedCollectionItem);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-}
-
-async function deleteCollectionItem(req, res) {
-  try {
-    await res.collectionItem.remove();
-    res.json({ message: 'Collection item deleted' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-}
-
-module.exports = {
-  getAllCollectionItems,
-  getCollectionItemById,
-  createCollectionItem,
-  updateCollectionItem,
-  deleteCollectionItem
-};
+module.exports = new itemController
