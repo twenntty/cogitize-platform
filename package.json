@@ -1,0 +1,22 @@
+{
+  "name": "cogitize-platform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twenntty/cogitize-platform.git"
+  },
+  "author": "Bilous Mark",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twenntty/cogitize-platform/issues"
+  },
+  "homepage": "https://github.com/twenntty/cogitize-platform#readme",
+  "dependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
